@@ -1,0 +1,13 @@
+#install and unpack library to readxl
+install.packages("readxl")
+library("readxl")
+
+#read in excel file from working directory
+df = read_excel("filename.xlsx", sheet = "Sheet1")
+
+#explore file
+head(df)
+str(df)
+
+#explore datatypes of sql file
+str(table)
