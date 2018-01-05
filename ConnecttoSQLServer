@@ -1,0 +1,11 @@
+# R-Programming
+
+library(odbc) 
+install.packages("rstudioapi")
+dbhandle <- dbConnect(odbc(),
+                      Driver = "{SQL Server Native Client 11.0}",
+                      Server = "SERVERNAME",
+                      Database = "DATABASENAME",
+                      UID = "USERNAME",
+                      PWD = rstudioapi::askForPassword("Database password")) 
+odbcCloseAll()
