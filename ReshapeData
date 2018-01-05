@@ -1,0 +1,33 @@
+# R-Programming
+
+# import data file as df
+
+library(tidyr)
+library(reshape2)
+
+#source https://www.r-bloggers.com/how-to-reshape-data-in-r-tidyr-vs-reshape2/
+
+#reshape data using either of these methods below
+
+  #dataset is df
+  #attribute is name of column for normalised column
+  #value is name of column with value in it
+  #columns to keep into normalised format are newstoreid, store_name, customertype
+  
+gathered.df = gather(df, attribute,value , -newstoreid, -store_name, -customertype, -period)
+head(gathered.df)
+
+molten.df = melt(df,variable.name = "attribute",value.names = "value",
+                 id.vars = c("newstoreid", "store_name","customertype","period"))
+head(molten.df)
+
+#next widen the data for each period (spread and cast are equivalent like gather and melt
+
+  #use first manipulated dataset specifying period as column to widen and value as value to use
+
+spread.gathered.df = spread(gathered.df, period, value)
+head(spread.gathered.df)
+
+
+cast.molten.df <- dcast(molten.df, formula = newstoreid+store_name+customertype+attribute ~ period, value.var = "value")
+head(cast.molten.df)
