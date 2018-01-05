@@ -1,0 +1,25 @@
+# R-Programming
+
+
+# select items based on row numbers to get data for analysis
+n = c(17,29,30,7,3)
+
+#create a list to store all data in
+store_data = list()
+
+#loop through sample of items
+for (i in n) { # 1:nrow(df)) {
+  string = sprintf("select * FROM DATABASENAME where 
+                   newStoreid = '%s' and (period = 'period1' and transDateTime between '%s' and '%s') 
+                   or (period = 'period2' and transDateTime between '%s' and '%s')\n",
+                   df$`New store`[i],df$Period1_StartDate[i], df$Period1_EndDate[i],
+                   df$Period2_StartDate[i],df$Period2_EndDate[i])
+  store_id = as.character(df$`New store`[i])
+  store_data[[store_id]] = sqlQuery(dbhandle, string)
+}
+
+#brings together all store data
+all_store_data = bind_rows(store_data)
+
+#send data to csv for analysis
+write.csv(all_store_data, "filename.csv")
