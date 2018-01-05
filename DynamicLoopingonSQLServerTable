@@ -1,5 +1,7 @@
 # R-Programming
 
+# select, at random, 5 numbers between 1 and rows of df
+nsample = sample(nrow(df), 5) 
 
 # select items based on row numbers to get data for analysis
 n = c(17,29,30,7,3)
